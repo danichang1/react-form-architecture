@@ -7,12 +7,11 @@ import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import NumberField from './NumberField';
 
-// logic to validate that a string is a positive number using zod
+// logic to validate that user input is a positive number using zod, coercing the input to a number type
 const positiveNumber = (label: string) =>
-  z.string().refine(
-    (val) => val !== "" && !isNaN(Number(val)) && Number(val) > 0,
-    `${label} must be a positive number`
-  );
+  z.coerce.number({
+    invalid_type_error: `${label} must be a number`,
+  }).positive(`${label} must be a positive number`);
 
 // define schema for form inputs with validation
 const formSchema = z.object({
