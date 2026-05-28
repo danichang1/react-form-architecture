@@ -2,6 +2,11 @@
 
 This is a demonstration of a frontend architecture using TanStack Form, Zod, and MUI to construct a strongly-typed form with validation. A Zod schema is used to validate user inputs, and TanStack Form is used to manage form state and handle changes and submissions. MUI components are used for text fields and buttons, providing a consistent user interface. On form submit, a toast displays the submitted values.
 
+<img height="400" alt="image" src="https://github.com/user-attachments/assets/f14e0a5b-b833-4490-9d9c-10b8943c29d1" /> <img height="400" alt="image" src="https://github.com/user-attachments/assets/ae9e1ca0-d36f-45fb-8aee-3730302abe8b" />
+<img width="1600" alt="image" src="https://github.com/user-attachments/assets/ed93135e-0593-46ef-9607-5f29bf8c7991" />
+
+
+
 ## Note on Default Values
 
 If you would like to declare default values for the form, you must make sure to use .parse() to prevent type mismatch errors between the default values and the expectations of the schema.
