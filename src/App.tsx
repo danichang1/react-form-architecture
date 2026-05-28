@@ -1,11 +1,13 @@
 import { useForm } from '@tanstack/react-form';
 import { Button, FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import * as z from "zod";
 import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import NumberField from './NumberField';
 
+// logic to validate that a string is a positive number using zod
 const positiveNumber = (label: string) =>
   z.string().refine(
     (val) => val !== "" && !isNaN(Number(val)) && Number(val) > 0,
@@ -19,37 +21,12 @@ const formSchema = z.object({
   prepWeight: positiveNumber("Prep weight"),
 });
 
-function NumberField({ form, name, label }) {
-  return (
-    <form.Field
-      name={name}
-      children={(field) => {
-        const isInvalid =
-          field.state.meta.isTouched && !field.state.meta.isValid;
-
-        return (
-          <TextField
-            id={name}
-            label={label}
-            value={field.state.value ?? ""}
-            onBlur={field.handleBlur}
-            onChange={(e) => field.handleChange(e.target.value)}
-            error={isInvalid}
-            helperText={
-              isInvalid
-                ? (field.state.meta.errors[0] as { message: string }).message
-                : ""
-            }
-          />
-        );
-      }}
-    />
-  );
-}
 export default function App() {
+  // states for managing toast notification
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
+  // initialize form with validation schema and submit handler
   const form = useForm({
     validators: {
       onChange: formSchema,
@@ -61,37 +38,71 @@ export default function App() {
     },
   })
 
+  // handler to close the toast notification
   const handleToastClose = () => {
     setToastOpen(false);
   };
 
   return (
-    <Box>
-      <form
-        id="mix-prep-form"
-        onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit()
+    <>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 2,
         }}
       >
-        <FormControl>
-          <NumberField form={form} name="sampleWeight" label="Sample Weight" />
-          <NumberField form={form} name="bulkWeight" label="Bulk Weight" />
-          <NumberField form={form} name="prepWeight" label="Prep Weight" />
-          <form.Subscribe
-            selector={(state) => [state.canSubmit]}
-            children={([canSubmit]) => (
-              <Button type="submit" disabled={!canSubmit}>Submit</Button>
-             )}
-          />  
-        </FormControl>
-      </form>
+        <Box
+          sx={{
+            width: 350,
+            padding: 4,
+            border: "1px solid #ccc",
+            borderRadius: 2
+          }}
+        >
+          <form
+            id="mix-prep-form"
+            onSubmit={(e) => {
+              e.preventDefault()
+              form.handleSubmit()
+            }}
+          >
+            <FormControl
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+            >
+              <Typography variant="h5" sx={{ marginBottom: 2 }}> Mixing & Prep Form </Typography>
+              <NumberField form={form} name="sampleWeight" label="Sample Weight" />
+              <NumberField form={form} name="bulkWeight" label="Bulk Weight" />
+              <NumberField form={form} name="prepWeight" label="Prep Weight" />
+              <form.Subscribe
+                selector={(state) => [state.canSubmit]}
+                children={([canSubmit]) => (
+                  <Button
+                    type="submit"
+                    disabled={!canSubmit}
+                    variant="outlined"
+                    sx={{ width: "100px", marginTop: 2 }}
+                  >
+                    Submit
+                  </Button>
+                 )}
+              />  
+            </FormControl>
+          </form>
+        </Box>
+      </Box>
       <Snackbar
-        open={toastOpen}
-        autoHideDuration={2000}
-        onClose={handleToastClose}
-        message={toastMessage}
+          open={toastOpen}
+          autoHideDuration={2000}
+          onClose={handleToastClose}
+          message={toastMessage}
       />
-    </Box>
+    </>
   )
 }
