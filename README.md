@@ -9,7 +9,7 @@
                 - components
     - DONE: Create top level types folder
 2. Create launch files.
-3. Clean up dependency tree.
+3. DONE Clean up dependency tree.
     - Remove Tailwind.
     - Remove lucide-react.
     - etc.
