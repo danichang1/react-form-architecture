@@ -1,13 +1,13 @@
 # TODO
 1. Organize folder structure for large app.
-    - For folders owned by this project use Pascal case.
-    - Create top level feat folder add a dummy feature with a component subfolder.
-    - Create top level components folder.
-    - example folder structure
+    - DONE: For folders owned by this project use Pascal case.
+    - DONE: Create top level feat folder add a dummy feature with a component subfolder.
+    - DONE: Create top level components folder.
+    - DONE: example folder structure
         - /feat
             - home
                 - components
-    - Create top level types folder
+    - DONE: Create top level types folder
 2. Create launch files.
 3. Clean up dependency tree.
     - Remove Tailwind.
