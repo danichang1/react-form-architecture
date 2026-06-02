@@ -1,10 +1,18 @@
 import TextField from '@mui/material/TextField';
 
-export default function NumberField({ form, name, label }) {
+export default function NumberField({
+  form,
+  name,
+  label,
+}: {
+  form: any;
+  name: string;
+  label: string;
+}) {
   return (
     <form.Field
       name={name}
-      children={(field) => {
+      children={(field: any) => {
         const isInvalid =
           field.state.meta.isTouched && !field.state.meta.isValid;
 

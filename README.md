@@ -1,3 +1,29 @@
+# TODO
+1. Organize folder structure for large app.
+    - For folders owned by this project use Pascal case.
+    - Create top level feat folder add a dummy feature with a component subfolder.
+    - Create top level components folder.
+    - example folder structure
+        - /feat
+            - home
+                - components
+    - Create top level types folder
+2. Create launch files.
+3. Clean up dependency tree.
+    - Remove Tailwind.
+    - Remove lucide-react.
+    - etc.
+4. Create UI test project.
+    - Playwright
+5. Configure final linting.
+    - Pick linting package. Vite vs. Vite+.
+6. Add sample tanstack query.
+7. Remove use of implicit any and any use any that can be replaced with a specific type.
+8. Research specifying a type specific form using tanstack form.
+9. Replace refs to seedlab language with something generic.
+
+
+
 # Seed Lab Architecture Demo Project
 
 This is a demonstration of a frontend architecture using TanStack Form, Zod, and MUI to construct a strongly-typed form with validation. A Zod schema is used to validate user inputs, and TanStack Form is used to manage form state and handle changes and submissions. MUI components are used for text fields and buttons, providing a consistent user interface. On form submit, a toast displays the submitted values.
