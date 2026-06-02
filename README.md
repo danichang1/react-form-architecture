@@ -1,5 +1,5 @@
 # TODO
-1. Organize folder structure for large app.
+1. DONE: Organize folder structure for large app.
     - DONE: For folders owned by this project use Pascal case.
     - DONE: Create top level feat folder add a dummy feature with a component subfolder.
     - DONE: Create top level components folder.
