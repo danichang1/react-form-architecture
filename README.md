@@ -9,8 +9,8 @@
        - home
          - components
    - DONE: Create top level types folder
-2. Create launch files.
-3. DONE Clean up dependency tree.
+2. DONE: Create launch files.
+3. DONE: Clean up dependency tree.
    - Remove Tailwind.
    - Remove lucide-react.
    - etc.
@@ -21,7 +21,7 @@
 6. Add sample tanstack query.
 7. Remove use of implicit any and any use any that can be replaced with a specific type.
 8. Research specifying a type specific form using tanstack form.
-9. DONE Replace refs to seedlab language with something generic.
+9. DONE: Replace refs to seedlab language with something generic.
 
 # Seed Lab Architecture Demo Project
 
