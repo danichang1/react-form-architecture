@@ -118,7 +118,6 @@ export default defineConfig({
         files: ['playwright.config.ts'],
         env: {
           node: true,
-          builtin: true,
         },
       },
     ],
