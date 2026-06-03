@@ -114,6 +114,13 @@ export default defineConfig({
           browser: true,
         },
       },
+      {
+        files: ['playwright.config.ts'],
+        env: {
+          node: true,
+          builtin: true,
+        },
+      },
     ],
     options: {
       typeAware: true,

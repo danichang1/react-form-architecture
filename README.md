@@ -14,7 +14,7 @@
    - Remove Tailwind.
    - Remove lucide-react.
    - etc.
-4. Create UI test project.
+4. DONE: Create UI test project.
    - Playwright
 5. DONE: Configure final linting.
    - Pick linting package. Vite vs. Vite+.

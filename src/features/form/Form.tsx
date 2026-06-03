@@ -64,7 +64,7 @@ export default function Form() {
           }}
         >
           <form
-            id="mix-prep-form"
+            id="test-form"
             onSubmit={async (e) => {
               e.preventDefault();
               await form.handleSubmit();
