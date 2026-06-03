@@ -19,7 +19,7 @@ const formSchema = z.object({
     .number({
       invalid_type_error: 'Positive float must be a number',
     })
-    .positive('Positive float must be positive')
+    .positive('Positive float must be positive'),
 });
 
 export default function Form() {
@@ -29,11 +29,6 @@ export default function Form() {
 
   // initialize form with validation schema and submit handler
   const form = useForm({
-    defaultValues: formSchema.parse({
-      string: 'test',
-      integer: '2',
-      positiveFloat: '2.02',
-    }),
     validators: {
       onChange: formSchema,
       onMount: formSchema,
