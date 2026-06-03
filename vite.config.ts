@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite-plus';
 import react from '@vitejs/plugin-react';
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -107,12 +108,7 @@ export default defineConfig({
           'typescript/triple-slash-reference': 'error',
           'react/rules-of-hooks': 'error',
           'react/exhaustive-deps': 'warn',
-          'react/only-export-components': [
-            'error',
-            {
-              allowConstantExport: true,
-            },
-          ],
+          'react/only-export-components': 'off',
         },
         env: {
           browser: true,
@@ -138,5 +134,11 @@ export default defineConfig({
       ignored: ['**/.vs/**', '**/dist/**'],
     },
   },
-  plugins: [react()],
+  plugins: [
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+    }),
+    react(),
+  ],
 });

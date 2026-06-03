@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
-import NumberField from './NumberField';
+import NumberField from './components/NumberField';
 
 // logic to validate that user input is a positive number using zod, coercing the input to a number type
 const positiveNumber = (label: string) =>
@@ -22,7 +22,7 @@ const formSchema = z.object({
   prepWeight: positiveNumber('Prep weight'),
 });
 
-export default function App() {
+export default function Form() {
   // states for managing toast notification
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
