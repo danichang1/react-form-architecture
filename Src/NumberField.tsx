@@ -13,23 +13,20 @@ export default function NumberField({
     <form.Field
       name={name}
       children={(field: any) => {
-        const isInvalid =
-          field.state.meta.isTouched && !field.state.meta.isValid;
+        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
         return (
           <TextField
             id={name}
             label={label}
-            value={field.state.value ?? ""}
+            value={field.state.value ?? ''}
             onBlur={field.handleBlur}
             onChange={(e) => field.handleChange(e.target.value)}
             error={isInvalid}
             helperText={
-              isInvalid
-                ? (field.state.meta.errors[0] as { message: string }).message
-                : " "
+              isInvalid ? (field.state.meta.errors[0] as { message: string }).message : ' '
             }
-            sx={{ marginTop: 2, width: "300px" }}
+            sx={{ marginTop: 2, width: '300px' }}
           />
         );
       }}
