@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 
-export default function NumberField({
+export default function FormField({
   form,
   name,
   label,

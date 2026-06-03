@@ -5,21 +5,21 @@ import * as z from 'zod';
 import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
-import NumberField from './components/NumberField';
-
-// logic to validate that user input is a positive number using zod, coercing the input to a number type
-const positiveNumber = (label: string) =>
-  z.coerce
-    .number({
-      invalid_type_error: `${label} must be a number`,
-    })
-    .positive(`${label} must be a positive number`);
+import FormField from './components/FormField';
 
 // define schema for form inputs with validation
 const formSchema = z.object({
-  sampleWeight: positiveNumber('Sample weight'),
-  bulkWeight: positiveNumber('Bulk weight'),
-  prepWeight: positiveNumber('Prep weight'),
+  string: z.string(),
+  integer: z.coerce
+    .number({
+      invalid_type_error: 'Integer must be a number',
+    })
+    .int('Integer must be a whole number'),
+  positiveFloat: z.coerce
+    .number({
+      invalid_type_error: 'Positive float must be a number',
+    })
+    .positive('Positive float must be positive')
 });
 
 export default function Form() {
@@ -29,12 +29,17 @@ export default function Form() {
 
   // initialize form with validation schema and submit handler
   const form = useForm({
+    defaultValues: formSchema.parse({
+      string: 'test',
+      integer: '2',
+      positiveFloat: '2.02',
+    }),
     validators: {
       onChange: formSchema,
       onMount: formSchema,
     },
     onSubmit: async ({ value }) => {
-      setToastMessage(JSON.stringify(value));
+      setToastMessage(JSON.stringify(formSchema.parse(value)));
       setToastOpen(true);
     },
   });
@@ -79,11 +84,11 @@ export default function Form() {
             >
               <Typography variant="h5" sx={{ marginBottom: 2 }}>
                 {' '}
-                Mixing & Prep Form{' '}
+                Test Form{' '}
               </Typography>
-              <NumberField form={form} name="sampleWeight" label="Sample Weight" />
-              <NumberField form={form} name="bulkWeight" label="Bulk Weight" />
-              <NumberField form={form} name="prepWeight" label="Prep Weight" />
+              <FormField form={form} name="string" label="String" />
+              <FormField form={form} name="integer" label="Integer" />
+              <FormField form={form} name="positiveFloat" label="Positive Float" />
               <form.Subscribe
                 selector={(state) => [state.canSubmit]}
                 children={([canSubmit]) => (

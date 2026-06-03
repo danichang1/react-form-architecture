@@ -21,14 +21,11 @@
 6. Add sample tanstack query.
 7. Remove use of implicit any and any use any that can be replaced with a specific type.
 8. Research specifying a type specific form using tanstack form.
-9. Replace refs to seedlab language with something generic.
+9. DONE Replace refs to seedlab language with something generic.
 
 # Seed Lab Architecture Demo Project
 
 This is a demonstration of a frontend architecture using TanStack Form, Zod, and MUI to construct a strongly-typed form with validation. A Zod schema is used to validate user inputs, and TanStack Form is used to manage form state and handle changes and submissions. MUI components are used for text fields and buttons, providing a consistent user interface. On form submit, a toast displays the submitted values.
-
-<img height="400" alt="image" src="https://github.com/user-attachments/assets/f14e0a5b-b833-4490-9d9c-10b8943c29d1" /> <img height="400" alt="image" src="https://github.com/user-attachments/assets/ae9e1ca0-d36f-45fb-8aee-3730302abe8b" />
-<img width="1600" alt="image" src="https://github.com/user-attachments/assets/ed93135e-0593-46ef-9607-5f29bf8c7991" />
 
 ## Note on Default Values
 
@@ -38,16 +35,16 @@ For example:
 ```typescript
 const form = useForm({
   defaultValues: formSchema.parse({
-    sampleWeight: '2',
-    bulkWeight: '2',
-    prepWeight: '2',
+    string: 'test',
+    integer: '2',
+    positiveFloat: '2.02',
   }),
   validators: {
     onChange: formSchema,
     onMount: formSchema,
   },
   onSubmit: async ({ value }) => {
-    setToastMessage(JSON.stringify(value));
+    setToastMessage(JSON.stringify(formSchema.parse(value)));
     setToastOpen(true);
   },
 });
