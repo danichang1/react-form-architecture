@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import FormField from './components/FormField';
+import { useMutation } from '@tanstack/react-query';
 
 // define schema for form inputs with validation
 const formSchema = z.object({
@@ -27,6 +28,25 @@ export default function Form() {
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
+  // initialize mutation to use on form submit, currently uses placeholder API
+  const submitMutation = useMutation({
+    mutationFn: async (data: { string: string; integer: number; positiveFloat: number }) => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit');
+      }
+
+      return response.json();
+    },
+  });
+
   // initialize form with validation schema and submit handler
   const form = useForm({
     validators: {
@@ -34,6 +54,9 @@ export default function Form() {
       onMount: formSchema,
     },
     onSubmit: async ({ value }) => {
+      const parsed = formSchema.parse(value);
+      const result = await submitMutation.mutateAsync(parsed);
+      console.log(`Created post with id ${result.id}`);
       setToastMessage(JSON.stringify(formSchema.parse(value)));
       setToastOpen(true);
     },
@@ -93,7 +116,7 @@ export default function Form() {
                     variant="outlined"
                     sx={{ width: '100px', marginTop: 2 }}
                   >
-                    Submit
+                    {submitMutation.isPending ? 'Submitting...' : 'Submit'}
                   </Button>
                 )}
               />

@@ -18,7 +18,7 @@
    - Playwright
 5. DONE: Configure final linting.
    - Pick linting package. Vite vs. Vite+.
-6. Add sample tanstack query.
+6. DONE: Add sample tanstack query.
 7. Remove use of implicit any and any use any that can be replaced with a specific type.
 8. Research specifying a type specific form using tanstack form.
 9. DONE: Replace refs to seedlab language with something generic.
