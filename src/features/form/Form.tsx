@@ -1,11 +1,13 @@
-import { useForm } from '@tanstack/react-form';
-import { Button, FormControl } from '@mui/material';
+import { createFormHook } from '@tanstack/react-form';
+import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
 import * as z from 'zod';
 import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import FormField from './components/FormField';
+import { fieldContext, formContext } from './formContext';
+import { SubmitButton } from './components/SubmitButton';
 import { useMutation } from '@tanstack/react-query';
 
 // define schema for form inputs with validation
@@ -21,6 +23,17 @@ const formSchema = z.object({
       invalid_type_error: 'Positive float must be a number',
     })
     .positive('Positive float must be positive'),
+});
+
+const { useAppForm } = createFormHook({
+  fieldComponents: {
+    FormField,
+  },
+  formComponents: {
+    SubmitButton,
+  },
+  fieldContext,
+  formContext,
 });
 
 export default function Form() {
@@ -48,7 +61,7 @@ export default function Form() {
   });
 
   // initialize form with validation schema and submit handler
-  const form = useForm({
+  const form = useAppForm({
     validators: {
       onChange: formSchema,
       onMount: formSchema,
@@ -57,7 +70,8 @@ export default function Form() {
       const parsed = formSchema.parse(value);
       const result = await submitMutation.mutateAsync(parsed);
       console.log(`Created post with id ${result.id}`);
-      setToastMessage(JSON.stringify(formSchema.parse(value)));
+
+      setToastMessage(JSON.stringify(parsed));
       setToastOpen(true);
     },
   });
@@ -101,25 +115,24 @@ export default function Form() {
               }}
             >
               <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                {' '}
-                Test Form{' '}
+                Test Form
               </Typography>
-              <FormField form={form} name="string" label="String" />
-              <FormField form={form} name="integer" label="Integer" />
-              <FormField form={form} name="positiveFloat" label="Positive Float" />
-              <form.Subscribe
-                selector={(state) => [state.canSubmit]}
-                children={([canSubmit]) => (
-                  <Button
-                    type="submit"
-                    disabled={!canSubmit}
-                    variant="outlined"
-                    sx={{ width: '100px', marginTop: 2 }}
-                  >
-                    {submitMutation.isPending ? 'Submitting...' : 'Submit'}
-                  </Button>
+
+              <form.AppField name="string">
+                {(field) => <field.FormField label="String" />}
+              </form.AppField>
+              <form.AppField name="integer">
+                {(field) => <field.FormField label="Integer" />}
+              </form.AppField>
+              <form.AppField name="positiveFloat">
+                {(field) => <field.FormField label="Positive Float" />}
+              </form.AppField>
+
+              <form.Subscribe selector={(state) => state.canSubmit}>
+                {(canSubmit) => (
+                  <SubmitButton isPending={submitMutation.isPending} canSubmit={canSubmit} />
                 )}
-              />
+              </form.Subscribe>
             </FormControl>
           </form>
         </Box>
