@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite-plus';
-import react from '@vitejs/plugin-react';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite-plus';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +11,7 @@ export default defineConfig({
     singleQuote: true,
     semi: true,
     sortPackageJson: true,
+    sortImports: true,
   },
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react'],

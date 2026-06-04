@@ -1,29 +1,16 @@
-import { createFormHook } from '@tanstack/react-form';
 import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
-import * as z from 'zod';
-import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
-import FormField from './components/FormField';
-import { fieldContext, formContext } from './formContext';
-import { SubmitButton } from './components/SubmitButton';
+import { createFormHook } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 
-// define schema for form inputs with validation
-const formSchema = z.object({
-  string: z.string(),
-  integer: z.coerce
-    .number({
-      invalid_type_error: 'Integer must be a number',
-    })
-    .int('Integer must be a whole number'),
-  positiveFloat: z.coerce
-    .number({
-      invalid_type_error: 'Positive float must be a number',
-    })
-    .positive('Positive float must be positive'),
-});
+import { formSchema } from '../../types/form';
+import type { FormValues } from '../../types/form';
+import FormField from './components/FormField';
+import { SubmitButton } from './components/SubmitButton';
+import { fieldContext, formContext } from './formContext';
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
@@ -43,7 +30,7 @@ export default function Form() {
 
   // initialize mutation to use on form submit, currently uses placeholder API
   const submitMutation = useMutation({
-    mutationFn: async (data: { string: string; integer: number; positiveFloat: number }) => {
+    mutationFn: async (data: FormValues) => {
       const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         headers: {
@@ -66,7 +53,7 @@ export default function Form() {
       onChange: formSchema,
       onMount: formSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value }: { value: FormValues }) => {
       const parsed = formSchema.parse(value);
       const result = await submitMutation.mutateAsync(parsed);
       console.log(`Created post with id ${result.id}`);
