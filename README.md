@@ -1,53 +1,96 @@
-# TODO
+# React Form Architecture Boilerplate
 
-1. DONE: Organize folder structure for large app.
-   - DONE: For folders owned by this project use Pascal case.
-   - DONE: Create top level feat folder add a dummy feature with a component subfolder.
-   - DONE: Create top level components folder.
-   - DONE: example folder structure
-     - /feat
-       - home
-         - components
-   - DONE: Create top level types folder
-2. DONE: Create launch files.
-3. DONE: Clean up dependency tree.
-   - Remove Tailwind.
-   - Remove lucide-react.
-   - etc.
-4. DONE: Create UI test project.
-   - Playwright
-5. DONE: Configure final linting.
-   - Pick linting package. Vite vs. Vite+.
-6. DONE: Add sample tanstack query.
-7. DONE: Remove use of implicit any and any use any that can be replaced with a specific type.
-8. DONE: Research specifying a type specific form using tanstack form.
-9. DONE: Replace refs to seedlab language with something generic.
+A lightweight React boilerplate for building form-driven applications with strong typing, validation, and a modular architecture.
 
-# Seed Lab Architecture Demo Project
+This project is designed to be a starting point for developers who want to extend a modern form workflow with:
 
-This is a demonstration of a frontend architecture using TanStack Form, Zod, and MUI to construct a strongly-typed form with validation. A Zod schema is used to validate user inputs, and TanStack Form is used to manage form state and handle changes and submissions. MUI components are used for text fields and buttons, providing a consistent user interface. On form submit, a toast displays the submitted values.
+- React with TypeScript
+- TanStack Form for form state management
+- Zod for schema validation
+- MUI for UI components
+- TanStack Router for route-based rendering
+- TanStack Query for API queries and mutation handling
+- Vite+ as the frontend build and dev toolchain
 
-## Note on Default Values
+The current example includes a single form feature with typed validation and a structure intended to be easy to grow into a larger application.
 
-If you would like to declare default values for the form, you must make sure to use .parse() to prevent type mismatch errors between the default values and the expectations of the schema.
-For example:
+## Features
 
-```typescript
-const form = useForm({
-  defaultValues: formSchema.parse({
-    string: 'test',
-    integer: '2',
-    positiveFloat: '2.02',
-  }),
-  validators: {
-    onChange: formSchema,
-    onMount: formSchema,
-  },
-  onSubmit: async ({ value }) => {
-    setToastMessage(JSON.stringify(formSchema.parse(value)));
-    setToastOpen(true);
-  },
-});
+- Strongly typed form schema and validation
+- Centralized form state management
+- Route composition using `@tanstack/react-router`
+- Vite+ development and build workflow
+- Example Playwright test in `tests/form.spec.ts`
+
+## Installation
+
+1. Clone the repository
+
+   ```powershell
+   git clone https://github.com/danichang1/react-form-architecture.git
+   cd react-form-architecture
+   ```
+
+2. Install dependencies
+
+   ```powershell
+   npm i
+   ```
+
+3. Start the development server
+
+   ```powershell
+   vp run dev
+   ```
+
+4. Open the app in your browser
+   - The local development URL is printed in the terminal by `vp run dev`
+
+## Available Scripts
+
+- `vp run dev` — start the Vite+ development server
+- `vp run build` — run TypeScript build and bundle the app for production
+
+## Testing
+
+This project includes an example Playwright test in `tests/form.spec.ts`.
+
+Run tests with the Playwright CLI:
+
+```powershell
+npx playwright test
 ```
 
-Without .parse(), you may encounter errors on your validator functions.
+In the future, if more isolated component tests are needed, it may make sense to include both Playwright and Cypress tests.
+
+## Linting and Formatting
+
+- `vp lint` checks code quality with the Vite+ linting workflow.
+- `vp fmt` formats files according to the rules defined in `vite.config.ts`.
+
+## Project Structure
+
+- `src/main.tsx` — application entry point
+- `src/routes/__root.tsx` — root route wrapper
+- `src/routes/index.tsx` — example route rendering the form
+- `src/features/form/Form.tsx` — main form feature container
+- `src/features/form/components` — components used within the form feature
+- `src/features/form/context/formContext.tsx` — form state and schema context
+- `tests/form.spec.ts` — example end-to-end form test
+
+## Naming Conventions
+
+- Folders and directories use `kebab-case`.
+- React component files use `PascalCase`.
+- Other TypeScript files (`.ts`, `.tsx`) use `camelCase`.
+- Keep component names and file names aligned for easier navigation.
+
+## Extending the Boilerplate
+
+To build on this project:
+
+- Add new features under `src/features`
+- Add routes in `src/routes`
+- Add shared UI components under `src/components`
+- Add new validation schemas with Zod into `src/types`
+- Wire more data fetching or mutation logic using `@tanstack/react-query`

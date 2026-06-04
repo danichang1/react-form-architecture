@@ -10,7 +10,7 @@ import { formSchema } from '../../types/form';
 import type { FormValues } from '../../types/form';
 import FormField from './components/FormField';
 import { SubmitButton } from './components/SubmitButton';
-import { fieldContext, formContext } from './formContext';
+import { fieldContext, formContext } from './context/formContext';
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
