@@ -94,3 +94,12 @@ To build on this project:
 - Add shared UI components under `src/components`
 - Add new validation schemas with Zod into `src/types`
 - Wire more data fetching or mutation logic using `@tanstack/react-query`
+
+## Useful References
+
+- Vite+ docs: https://viteplus.dev/guide/
+- Playwright docs: https://playwright.dev/docs/intro
+- TanStack Router docs: https://tanstack.com/router/latest/docs/overview
+- TanStack Query docs: https://tanstack.com/query/latest/docs/framework/react/overview
+- TanStack Form docs: https://tanstack.com/form/latest/docs/overview
+- This project uses form composition with TanStack Form. More details can be found here: https://tanstack.com/form/latest/docs/framework/react/guides/form-composition
