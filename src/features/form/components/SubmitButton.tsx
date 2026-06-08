@@ -6,7 +6,7 @@ export function SubmitButton({ isPending, canSubmit }: { isPending: boolean; can
       type="submit"
       disabled={!canSubmit || isPending}
       variant="outlined"
-      sx={{ width: '100px', mt: 2 }}
+      sx={{ width: 'fit-content', mt: 2 }}
     >
       {isPending ? 'Submitting...' : 'Submit'}
     </Button>
